@@ -3,9 +3,19 @@ package http
 import (
    "154.pages.dev/encoding/hex"
    "fmt"
+   "crypto/tls"
    "net/http"
    "net/http/httputil"
 )
+
+func SkipSSL() func() {
+   oldTransport := http.DefaultTransport
+   tr := &http.Transport{
+      TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+   }
+   http.DefaultClient.Transport = tr
+   return func() { http.DefaultClient.Transport = oldTransport }
+}
 
 func Location() func() {
    k := &http.DefaultClient.CheckRedirect

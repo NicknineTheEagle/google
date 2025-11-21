@@ -15,6 +15,7 @@ type flags struct {
    code string
    device bool
    single bool
+   skipssl bool
    platform play.Platform
    bulkdetails bool
 }
@@ -26,7 +27,7 @@ func main() {
    flag.StringVar(&f.app.AssetModule, "asset", "", "download application asset module")
    flag.BoolVar(&f.bulkdetails, "bulkdetails", false, "fetch application details using /fdfe/bulkDetails request")
    flag.BoolVar(&f.delivery, "download", false, "download application")
-   flag.BoolVar(&f.device, "d", false, "checkin and sync device")
+   flag.BoolVar(&f.device, "c", false, "checkin and sync device")
    flag.StringVar(&f.code, "o", "", func() string {
       var b strings.Builder
       b.WriteString("oauth_token from ")
@@ -34,12 +35,16 @@ func main() {
       return b.String()
    }())
    flag.BoolVar(&f.single, "s", false, "single APK")
+   flag.BoolVar(&f.skipssl, "k", false, "skip SSL certificate verification for proxying")
    flag.Uint64Var(&f.app.Version, "v", 0, "version code")
    flag.Var(&f.platform, "p", fmt.Sprint(play.Platforms))
    flag.StringVar(&f.app.Languages, "l", "en-US,fr-FR,de-DE,it-IT,es-ES", "languages to download, comma separated")
    flag.Parse()
    http.No_Location()
    http.Verbose()
+   if f.skipssl {
+      http.SkipSSL()
+   }
    switch {
    case f.app.ID != "":
       switch {
@@ -48,7 +53,7 @@ func main() {
          if err != nil {
             panic(err)
          }
-      case f.app.Version >= 1:
+      case f.app.Version > 0:
          if f.delivery {
             err := f.do_delivery()
             if err != nil {
