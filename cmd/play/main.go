@@ -53,7 +53,7 @@ func main() {
          if err != nil {
             panic(err)
          }
-      case f.app.Version >= 1:
+      case f.app.Version > 0:
          if f.delivery {
             err := f.do_delivery()
             if err != nil {

@@ -25,13 +25,13 @@ func (d *Details) Details(single bool) error {
       return err
    }
    req.URL.Path = "/fdfe/details"
-   queryParams := url.Values{
+   query := url.Values{
       "doc": {d.App.ID},
    }
-   if d.App.Version >= 1 {
-      queryParams["vc"] = []string{strconv.FormatUint(d.App.Version, 10)}
+   if d.App.Version > 0 {
+      query.Set("vc", strconv.FormatUint(d.App.Version, 10))
    }
-   req.URL.RawQuery = queryParams.Encode()
+   req.URL.RawQuery = query.Encode()
    authorization(req, d.Token)
    user_agent(req, single)
    if err := x_dfe_device_id(req, d.Checkin); err != nil {
