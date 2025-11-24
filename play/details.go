@@ -230,6 +230,14 @@ func (d Details) String() string {
    if v, ok := d.Version_Name(); ok {
       b = fmt.Append(b, " ", v)
    }
+   // https://github.com/NicknineTheEagle/google/pull/7
+   // we comment it out for now because it makes the details output somewhat cluttered
+   /*
+   b = append(b, "\nwhat's new:"...)
+   if v, ok := d.Whats_New(); ok {
+      b = fmt.Append(b, " ", v)
+   }
+   */
    b = append(b, "\nreleased on:"...)
    if v, ok := d.Released_On(); ok {
       b = fmt.Append(b, " ", v)
@@ -256,6 +264,12 @@ func (d Details) Version_Name() (string, bool) {
    d.m.Message(13)
    d.m.Message(1)
    return d.m.String(4)
+}
+
+func (d Details) Whats_New() (string, bool) {
+   d.m.Message(13)
+   d.m.Message(1)
+   return d.m.String(15)
 }
 
 func (d Details) Released_On() (string, bool) {
