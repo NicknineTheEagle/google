@@ -15,6 +15,7 @@ type flags struct {
    code string
    device bool
    single bool
+   skipssl bool
    platform play.Platform
    bulkdetails bool
 }
@@ -34,12 +35,16 @@ func main() {
       return b.String()
    }())
    flag.BoolVar(&f.single, "s", false, "single APK")
+   flag.BoolVar(&f.skipssl, "sv", false, "skip SSL certificate verification for proxying")
    flag.Uint64Var(&f.app.Version, "v", 0, "version code")
    flag.Var(&f.platform, "p", fmt.Sprint(play.Platforms))
    flag.StringVar(&f.app.Languages, "l", "en-US,fr-FR,de-DE,it-IT,es-ES", "languages to download, comma separated")
    flag.Parse()
    http.No_Location()
    http.Verbose()
+   if f.skipssl {
+      http.SkipSSL()
+   }
    switch {
    case f.app.ID != "":
       switch {
