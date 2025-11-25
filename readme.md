@@ -2,7 +2,7 @@
 
 Download APK from Google Play or send API requests.
 
-## tool examples
+## Tool examples
 
 Go [here](//accounts.google.com/embedded/setup/v2/android) in incognito mode and sign in with your Google Account. Then get authorization code (`oauth_token`) cookie from [browser&nbsp;storage][1]. It should be valid for 10 minutes. Then exchange authorization code for refresh token (`aas_et`):
 
@@ -66,6 +66,11 @@ Download APK. You need to specify any valid version code. The latest code is pro
 ~~~
 play -a com.google.android.youtube -p 2 -v 1540222400 -download
 ~~~
+
+> [!TIP]
+> You can use the `-s` flag with certain apps to trick the API into downloading a **single APK**.
+> Most modern apps are distributed as **split** APKs, where the app is broken into several **separate files** (e.g., base APK + architecture/density splits).
+> Some of those apps also have a **single APK** variant available through the API. The `-s` flag attempts to fetch that unified APK instead of the split set, when possible.
 
 Some apps use on-demand asset packs which are downloaded separately after the initial installation. Unfortunately, the tool has no way of knowing the names of these asset packs so they cannot be downloaded automatically. You will have to figure them out by examining the app's code. Once you do have an asset pack name, you can install it like this:
 
