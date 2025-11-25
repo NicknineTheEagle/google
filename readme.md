@@ -1,4 +1,4 @@
-# Google Play
+# Google Play APK Downloader
 
 Download APK from Google Play or send API requests.
 
@@ -35,7 +35,7 @@ Valid platforms are:
 - 10 - MIPS device
 - 11 - MIPS 64-bit device
 - 12 - RISC-V 64-bit device
-- 20 - ARMv7 QVGA phone (240x320 160dpi)
+- 20 - ARMv7 QVGA phone (240x320 120dpi)
 - 21 - ARMv7 HVGA phone (320x480 160dpi)
 - 22 - ARMv7 WVGA phone (480x800 240dpi)
 
@@ -72,7 +72,7 @@ play -a com.google.android.youtube -p 2 -v 1540222400 -download
 > Most modern apps are distributed as **split** APKs, where the app is broken into several **separate files** (e.g., base APK + architecture/density splits).
 > Some of those apps also have a **single APK** variant available through the API. The `-s` flag attempts to fetch that unified APK instead of the split set, when possible.
 
-Some apps use on-demand asset packs which are downloaded separately after the initial installation. Unfortunately, the tool has no way of knowing the names of these asset packs so they cannot be downloaded automatically. You will have to figure them out by examining the app's code. Once you do have an asset pack name, you can install it like this:
+Some apps use on-demand asset packs which are downloaded separately after the initial installation. Unfortunately, the tool has no way of knowing the names of these asset packs so they cannot be downloaded automatically. You will have to find them by examining the app's code. Once you do have an asset pack name, you can download it like this:
 
 ~~~
 play -a com.gameloft.android.ANMP.GloftA8HM -p 2 -v 86010 -asset music_pack
