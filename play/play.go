@@ -84,6 +84,8 @@ var Phone = Device{
       "android.hardware.telephony",
       // org.videolan.vlc
       "android.hardware.screen.landscape",
+      // com.playstation.rattlesnake
+      "android.hardware.vulkan.version",
    },
 }
 
