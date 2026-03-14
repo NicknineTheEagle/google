@@ -14,6 +14,7 @@ func Exchange(oauth_token string) (*Refresh_Token, error) {
          "ACCESS_TOKEN": {"1"},
          "Token":        {oauth_token},
          "service":      {"ac2dm"},
+         "droidguard_results": {"null"},
       },
    )
    if err != nil {
